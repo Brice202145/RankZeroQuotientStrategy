@@ -1,0 +1,60 @@
+
+// Computing rational points on quartic ciani
+P2<x,y,z> := ProjectiveSpace(Rationals(),2);
+Ci:=[voir le code 1]// liste des quartiques de ciani filtré dans la base de Drew voir le code1
+for F in Ci do
+C := Curve(P2,[F]);
+ assert #Points(C : Bound:=100) ge 1;
+
+if phi1 := iso<C -> C | [-x,y,z],[-x,y,z]> and phi2 := iso<C -> C | [x,-y,z],[x,-y,z]> and phi3 := iso<C -> C | [x,y,-z],[x,y,-z]> then
+
+G1 := AutomorphismGroup(C,[phi1]); G2 := AutomorphismGroup(C,[phi2]); G3 := AutomorphismGroup(C,[phi3]);
+
+Q1,m1 := CurveQuotient(G1);
+Q2,m2 := CurveQuotient(G2);
+Q3,m3 := CurveQuotient(G3);
+assert Genus(Q1) ge 1;
+assert Genus(Q2) ge 1;
+assert Genus(Q3) ge 1;
+
+if RankBound(Jacobian(Q1))*RankBound(Jacobian(Q2))*RankBound(Jacobian(Q3)) ge 1 then 
+print "The ranks are too large";
+else 
+    print "One of the quotients has rank 0";
+    print "The rank of the Jacobian is ",RankBound(Jacobian(Q1))+RankBound(Jacobian(Q2))+RankBound(Jacobian(Q3));
+if RankBound(Jacobian(Q1)) eq 0 then
+    Q := Q1; m := m1;
+    else if RankBound(Jacobian(Q2)) eq 0 then
+    	 Q := Q2; m := m2;
+    	else Q := Q3; m := m3;
+end if;
+end if;
+    print Q;
+	assert #Points(Q : Bound:=1000) eq #TorsionSubgroup(Jacobian(Q));
+    for i in [1..#Points(Q: Bound:=100)] do
+    RationalPoints(Difference(Pullback(m,Points(Q: Bound:=1000)[i]), BaseScheme(m)));
+end for;
+end if;
+end for;
+//  Computing rational points on plane curve admiting symetries dans la base de Drew et dont le quotient est une courbe de genre 1 et dont la jacobienne a un rang 0
+P2<x,y,z> := ProjectiveSpace(Rationals(),2);
+Ci:=[voir le code 2]// liste des courbes présentons une symétries filtrée dans la base de Drew voir le code2
+for F in Ci do
+C := Curve(P2,[F]);
+ assert #Points(C : Bound:=100) ge 1;
+if  phi := iso<C -> C | [-x,y,z],[-x,y,z]> or phi:= iso<C -> C | [x,-y,z],[x,-y,z]> or phi := iso<C -> C | [x,y,-z],[x,y,-z]> then
+G1 := AutomorphismGroup(C,[phi]);
+Q1,m1 := CurveQuotient(G1);
+assert Genus(Q1) ge 1 ;
+
+if RankBound(Jacobian(Q1)) eq 0 then
+    Q := Q1; m := m1;
+    
+end if;
+    print Q;
+	assert #Points(Q : Bound:=1000) eq #TorsionSubgroup(Jacobian(Q));
+    for i in [1..#Points(Q: Bound:=100)] do
+    RationalPoints(Difference(Pullback(m,Points(Q: Bound:=1000)[i]), BaseScheme(m)));
+end for;
+end if;
+end for;
