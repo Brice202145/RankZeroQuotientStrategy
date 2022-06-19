@@ -1,0 +1,44 @@
+//downloading the database
+A:=Read("g3.txt");
+B:=Split(A, "\n");
+D:=[];
+C:=[];
+for i in [1..#B] do
+    F:=Split(B[i],":");
+    D:=Append(D,F[1]);
+    C:=Append(C,F[2]);
+end for;
+
+Write("DISC.m", D);
+Write("DISC.m",C);
+*/
+
+/*
+load "DISC.m";
+count := 0;     
+Ci := [];  
+DCi := [];
+
+for i in [1..#C] do
+bo := false;
+CC := Curve(P2,[C[i][1]]);
+p := 3;
+while (not bo and p le 100) do
+    if not(p in PrimeFactors(D[i])) then
+F := Factorization(Numerator(ZetaFunction(ChangeRing(CC,GF(p))))); 
+for j in [1..#F] do
+    bo := bo or (Degree(F[j][1]) ge 4);
+end for;
+//bo := (#AutomorphismGroup(ChangeRing(CC,GF(p))) lt 4) or (#AutomorphismGroup(ChangeRing(CC,GF(p))) eq 6) or bo;
+end if;
+p := NextPrime(p);
+end while;
+if bo eq false then
+
+print i,D[i];
+print C[i][1];
+count := count + 1;
+Ci[count] := C[i][1];
+DCi[count] := D[i];
+end if;
+end for;

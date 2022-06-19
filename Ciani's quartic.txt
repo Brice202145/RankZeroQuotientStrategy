@@ -1,6 +1,6 @@
- Transformation des quartiques de Ciani en forme ternaire
+ // This code returns the curves in the Ci list as a1*x^4+a2*y^4+a3*z^4+2*(b1*y^2*z^2+b2*x^2*z^2+b3*x^2*y^2) which is a Ciani form
 P2<x,y,z> := ProjectiveSpace(Rationals(),2);
-
+//list of curves in Drew's database with three involutions
  Ci := [
     x^3*y + x^2*y^2 - 4*x*y^3 + 2*y^4 + x^3*z + 3*x^2*y*z - 3*x*y^2*z + x^2*z^2 
         - 3*x*y*z^2 + 3*y^2*z^2 - 4*x*z^3 + 2*z^4,
